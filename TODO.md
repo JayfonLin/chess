@@ -1,0 +1,1 @@
+- transpositon_table 抽离出static成员，并初始化
