@@ -25,37 +25,52 @@ int32_t Rand32() {
 }
 
 namespace chess {
-  void TranspositionTable::InitHashTable() {
-    srand((unsigned)time(NULL));
+  TranspositionBoard* TranspositionBoard::GetInstance() {
+    static TranspositionBoard instance;
+    return &instance;
+  }
 
-    for (int piece_type = 0; piece_type < kPieceNumber; ++piece_type) {
-      for (int position = 0; position < kBoardNumber; ++position) {
-        if (!board.InBoard(position)) {
+  TranspositionBoard::TranspositionBoard() {
+    srand((unsigned)time(NULL));
+  
+    for (int piece_type = 0; piece_type < kPieceNumber; piece_type++) {
+      for (int position = 0; position < kBoardNumber; position++]){
+        if (!CChessUtil::InBoard(position)) {
           continue;
         }
 
-        hash_key_board_state_[piece_type][position] = Rand32();
-        hash_key_board_state_[piece_type][position] = Rand64();
+        state_[piece_type][position] = Rand32();
+        checksum_[piece_type][position] = Rand64();
       }
-    } 
+    }
   }
 
+  uint32_t TranspositionBoard::GetState(const Piece& piece, int position) {
+    return state_[piece.piece_type()][position];
+  }
 
+  uint64_t TranspositionBoard::GetChecksum(const Piece& piece, int position) {
+    return checksum_[pice.piece_type()][position];
+  }
 
-  void TranspositionTable::CalculateInitHashKey(Piece squares[]) {
-    int32_t hash_32 = 0;
-    int64_t hash_64 = 0;
+  TranspositionTable::TranspositionTable(Piece* squares) 
+      : squares_(squares),
+        board_state_(0), 
+        board_checksum_(0) {
 
+    TranspositionBoard* trans_board = TranspositionBoard::GetInstance();
     for (int position = 0; position < kBoardNumber; position++) {
-      if (!board.InBoard(position)) {
+      if (!board::InBoard(position)) {
         continue;
       }
 
-      Piece& piece_type = squares[position];
+      Piece& piece_type = squares_[position];
       if (piece_type != Piece.EMPTY) {
-        hash_32 = hash_32 ^ hash_key_32_[]
+        board_state_ ^= trans_board.GetState(piece_type, position);
+        board_checksum_ ^= trans_board.GetChecksum(piece_type, position);
       }
 
     }
   }
+
 }

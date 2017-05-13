@@ -17,6 +17,7 @@ static int32_t Rand32();
 namespace chess {
 struct Move; 
 
+
 enum class EntryType {
   EXACT,
   LOWER_BOUND,
@@ -30,24 +31,39 @@ struct HashItem {
   short score;
 };
 
+class TranspostionBoard {
+ public:
+  uint32_t GetState(const Piece& piece, int position);
+  uint64_t GetChecksum(const Piece& piece, int position);
+
+ private:
+  static TranspostionBoard* GetInstance();
+  const static int kHashSize = 1024 * (2 << 10);
+
+  TranspostionBoard(); 
+  TranspostionBoard(const TranspostionBoard&);
+  TranspostionBoard& operator=(const TranspostionBoard&);
+
+  uint32_t state_[kPieceNumber][kBoardNumber];
+  uint64_t checksum_[kPieceNumber][kBoardNumber];
+
+  HashItem state_table_[kHashSize];
+  HashItem checksum_table_[kHashSize];
+
+};
+
 class TranspositionTable {
  public:
-  void CalculateInitHashKey(Piece squares[]);
-  void HashMakeMove(Move move, int cur_position[]);
+  TranspositionTable(Piece* squares);
+
+  void HashMakeMove(Move move);
   void HashUnmakeMove(Move move, int chess_id, int cur_position[]);
   int LookupHashTable(int alpha, int beta, int depth, int table_no);
   void EnterHashTable(EntryType entry_type, short eval, short depth, int table_no);
 
  private:
-  const static int kHashSize = 1024 * (2 << 10);
 
-  void InitHashTable();
-
-  static uint32_t hash_key_board_state_[kPieceNumber][kBoardNumber];
-  static uint64_t hash_key_board_checksum_[kPieceNumber][kBoardNumber];
-  static HashItem tt0_[kHashSize];
-  static HashItem tt1_[kHashSize];
-  
+  Piece* squares_;
   uint32_t board_state_;
   uint64_t board_checksum_;
 };  
