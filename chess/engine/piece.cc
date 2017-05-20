@@ -24,20 +24,15 @@ namespace chess {
 //std::shared_ptr<Piece> Piece::CreateBlackPawn() {return new Piece(Piece::kBlackPawn);}
 
 std::shared_ptr<Piece> Piece::CreatePiece(PieceType piece_type) {
-  if (piece_type == kEmpty) {
-    return GetEmptyPiece();
-  }
-
   return std::shared_ptr<Piece>(new Piece(piece_type));
 }
 
-bool Piece::NotEmpty(std::shared_ptr<Piece> piece) {
-  return piece->piece_type() != kEmpty;
+bool Piece::NotEmpty(const Piece& piece) {
+  return piece.piece_type() != kEmpty;
 }
 
 std::shared_ptr<Piece> Piece::GetEmptyPiece() {
-  static Piece empty(kEmpty);
-  return std::shared_ptr<Piece>(&empty);
+  return std::shared_ptr<Piece>(new Piece(kEmpty));
 }
 
 Piece::Piece(PieceType piece_type) : piece_type_(piece_type) { }

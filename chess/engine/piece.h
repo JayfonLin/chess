@@ -30,7 +30,7 @@ class Piece {
   const static PieceType kBlackPawn = 22;
 
   static std::shared_ptr<Piece> CreatePiece(PieceType piece_type);
-  static bool NotEmpty(std::shared_ptr<Piece> piece);
+  static bool NotEmpty(const Piece& piece);
   static std::shared_ptr<Piece> GetEmptyPiece();
 
   //static std::shared_ptr<Piece> CreateEmpty();
