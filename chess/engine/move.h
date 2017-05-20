@@ -12,6 +12,7 @@ class Piece;
 
 class Move {
  public:
+  Move(int from, int to);
   void SetPiece(std::shared_ptr<Piece> piece);
   std::shared_ptr<Piece> piece();
   int from();

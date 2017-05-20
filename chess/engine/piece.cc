@@ -27,8 +27,8 @@ std::shared_ptr<Piece> Piece::CreatePiece(PieceType piece_type) {
   return std::shared_ptr<Piece>(new Piece(piece_type));
 }
 
-bool Piece::NotEmpty(const Piece& piece) {
-  return piece.piece_type() != kEmpty;
+bool Piece::Empty(const std::shared_ptr<Piece> piece) {
+  return piece->piece_type() == kEmpty;
 }
 
 std::shared_ptr<Piece> Piece::GetEmptyPiece() {

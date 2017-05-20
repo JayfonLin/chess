@@ -10,7 +10,11 @@
 TEST(PieceTest, CreatePieceTest) {
   EXPECT_EQ(8, chess::Piece::CreatePiece(chess::Piece::kRedKing)->piece_type());
   EXPECT_EQ(0, chess::Piece::GetEmptyPiece()->piece_type());
-  //EXPECT_TRUE(chess::Piece::NotEmpty(chess::Piece::CreatePiece(chess::Piece::kBlackKing)));
+}
+
+TEST(PieceTest, Empty) {
+  EXPECT_TRUE(!chess::Piece::Empty(chess::Piece::CreatePiece(chess::Piece::kBlackKing)));
+  EXPECT_TRUE(chess::Piece::Empty(chess::Piece::GetEmptyPiece()));
 }
 
 

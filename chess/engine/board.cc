@@ -4,10 +4,6 @@
 
 #include "board.h"
 
-#include "piece.h"
-#include "exceptions.h"
-#include "move.h"
-
 
 namespace chess {
 
@@ -43,7 +39,7 @@ void Board::LoadBoard(int* pieces) {
 
 std::shared_ptr<Piece> Board::MakeMove(std::shared_ptr<Move> move) throw (piece_not_found){
   std::shared_ptr<Piece> from_piece = board_[move->from()];
-  if (!Piece::NotEmpty(from_piece)) {
+  if (Piece::Empty(from_piece)) {
     throw piece_not_found("piece not found");
   }
 
@@ -52,6 +48,14 @@ std::shared_ptr<Piece> Board::MakeMove(std::shared_ptr<Move> move) throw (piece_
 
   move->SetPiece(from_piece);
   return from_piece;
+}
+
+std::shared_ptr<Piece> Board::GetPiece(int position) throw (std::out_of_range){
+  if (!(0 <= position && position < kDroppointNumber)) {
+    throw std::out_of_range("piece position out of range");
+  }
+
+  return board_[position];
 }
 
 }

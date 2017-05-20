@@ -7,13 +7,14 @@
 
 #include <vector>
 #include <memory>
+#include <stdexcept>
 
 #include "exceptions.h"
+#include "move.h"
+#include "piece.h"
 
 
 namespace chess {
-class Piece;
-class Move;
 
 const int kDroppointNumber = 90;
 
@@ -23,6 +24,7 @@ class Board {
   void LoadStandardBoard();
   void LoadBoard(int* pieces);
   std::shared_ptr<Piece> MakeMove(std::shared_ptr<Move> move) throw (piece_not_found);
+  std::shared_ptr<Piece> GetPiece(int position) throw (std::out_of_range);
 
  private:
   

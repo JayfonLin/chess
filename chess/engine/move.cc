@@ -6,6 +6,9 @@
 
 namespace chess {
 
+Move::Move(int from, int to) : from_(from), to_(to){
+}
+
 void Move::SetPiece(std::shared_ptr<Piece> piece) {
   piece_ = piece;
 }
