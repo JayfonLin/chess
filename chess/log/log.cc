@@ -41,12 +41,3 @@ log4cpp::Category& log() {
 }
 
 }
-
-
-int main() {
-  logging::log().info("IN MAIN!");
-  logging::log().warn("root in main");
-
-  logging::Log::GetInstance().error().info("error");
-  return 0;
-}

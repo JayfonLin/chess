@@ -7,9 +7,15 @@
 #include "piece.h"
 
 
-TEST(PieceTest, CreatePieceTest) {
+TEST(PieceTest, CreatePiece) {
   EXPECT_EQ(8, chess::Piece::CreatePiece(chess::Piece::kRedKing)->piece_type());
+  EXPECT_EQ(22, chess::Piece::CreatePiece(chess::Piece::kBlackPawn)->piece_type());
   EXPECT_EQ(0, chess::Piece::GetEmptyPiece()->piece_type());
+}
+
+TEST(PieceTest, CreateTwice) {
+  EXPECT_EQ(20, chess::Piece::CreatePiece(chess::Piece::kBlackRook)->piece_type());
+  EXPECT_EQ(20, chess::Piece::CreatePiece(chess::Piece::kBlackRook)->piece_type());
 }
 
 TEST(PieceTest, Empty) {

@@ -24,6 +24,7 @@ class Board {
   void LoadStandardBoard();
   void LoadBoard(int* pieces);
   std::shared_ptr<Piece> MakeMove(std::shared_ptr<Move> move) throw (piece_not_found);
+  void UnmakeMove(std::shared_ptr<Move> move) throw (invalid_move);
   std::shared_ptr<Piece> GetPiece(int position) throw (std::out_of_range);
 
  private:

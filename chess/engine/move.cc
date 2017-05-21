@@ -9,12 +9,20 @@ namespace chess {
 Move::Move(int from, int to) : from_(from), to_(to){
 }
 
-void Move::SetPiece(std::shared_ptr<Piece> piece) {
-  piece_ = piece;
+void Move::SetMovePiece(std::shared_ptr<Piece> piece) {
+  move_piece_ = piece;
 }
 
-std::shared_ptr<Piece> Move::piece() {
-  return piece_;
+std::shared_ptr<Piece> Move::move_piece() {
+  return move_piece_;
+}
+
+void Move::SetKilledPiece(std::shared_ptr<Piece> piece) {
+  killed_piece_ = piece;
+}
+
+std::shared_ptr<Piece> Move::killed_piece() {
+  return killed_piece_;
 }
 
 int Move::from() {

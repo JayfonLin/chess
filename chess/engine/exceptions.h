@@ -9,10 +9,16 @@
 #include <stdexcept>
 
 namespace chess {
-class piece_not_found: public std::logic_error{
-public:
+class piece_not_found: public std::logic_error {
+ public:
   piece_not_found(const std::string &s);
   ~piece_not_found() throw();
+};
+
+class invalid_move: public std::logic_error {
+ public:
+  invalid_move(const std::string &s);
+  
 };
 }
 

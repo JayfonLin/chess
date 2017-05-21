@@ -40,14 +40,27 @@ void Board::LoadBoard(int* pieces) {
 std::shared_ptr<Piece> Board::MakeMove(std::shared_ptr<Move> move) throw (piece_not_found){
   std::shared_ptr<Piece> from_piece = board_[move->from()];
   if (Piece::Empty(from_piece)) {
-    throw piece_not_found("piece not found");
+    throw piece_not_found("piece not found in from-position");
   }
+
+  std::shared_ptr<Piece> to_piece = board_[move->to()];
 
   board_[move->to()] = from_piece;
   board_[move->from()] = Piece::GetEmptyPiece();
 
-  move->SetPiece(from_piece);
+  move->SetMovePiece(from_piece);
+  move->SetKilledPiece(to_piece);
   return from_piece;
+}
+
+void Board::UnmakeMove(std::shared_ptr<Move> move) throw (invalid_move) {
+  std::shared_ptr<Piece> to_piece = board_[move->to()];
+  if (to_piece != move->move_piece()) {
+    throw invalid_move("move piece not equal to board piece");
+  }
+
+  board_[move->to()] = move->killed_piece();
+  board_[move->from()] = to_piece;
 }
 
 std::shared_ptr<Piece> Board::GetPiece(int position) throw (std::out_of_range){
