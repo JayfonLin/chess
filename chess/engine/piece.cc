@@ -23,12 +23,29 @@ namespace chess {
 //std::shared_ptr<Piece> Piece::CreateBlackCannon() {return new Piece(Piece::kBlackCannon);}
 //std::shared_ptr<Piece> Piece::CreateBlackPawn() {return new Piece(Piece::kBlackPawn);}
 
+const PieceType Piece::kEmpty = 0;
+const PieceType Piece::kRedKing = 8;
+const PieceType Piece::kRedBodyGuard = 9;
+const PieceType Piece::kRedBishop = 10;
+const PieceType Piece::kRedHorse = 11;
+const PieceType Piece::kRedRook = 12;
+const PieceType Piece::kRedCannon = 13;
+const PieceType Piece::kRedPawn = 14;
+const PieceType Piece::kBlackKing = 16;
+const PieceType Piece::kBlackBodyGuard = 17;
+const PieceType Piece::kBlackBishop = 18;
+const PieceType Piece::kBlackHorse = 19;
+const PieceType Piece::kBlackRook = 20;
+const PieceType Piece::kBlackCannon = 21;
+const PieceType Piece::kBlackPawn = 22;
+
+
 std::shared_ptr<Piece> Piece::CreatePiece(PieceType piece_type) {
   return std::shared_ptr<Piece>(new Piece(piece_type));
 }
 
-bool Piece::Empty(const std::shared_ptr<Piece> piece) {
-  return piece->piece_type() == kEmpty;
+bool Piece::Empty() {
+  return piece_type_ == kEmpty;
 }
 
 std::shared_ptr<Piece> Piece::GetEmptyPiece() {
@@ -36,6 +53,14 @@ std::shared_ptr<Piece> Piece::GetEmptyPiece() {
 }
 
 Piece::Piece(PieceType piece_type) : piece_type_(piece_type) { }
+
+bool Piece::IsRed() {
+  return kRedKing <= piece_type_ && piece_type_ <= kRedPawn;
+}
+
+bool Piece::IsBlack() {
+  return kBlackKing <= piece_type_ && piece_type_ <= kBlackPawn;
+}
 
 PieceType Piece::piece_type() {
   return piece_type_;

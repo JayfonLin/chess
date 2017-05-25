@@ -13,24 +13,23 @@ typedef int8_t PieceType;
 
 class Piece {
  public:
-  const static PieceType kEmpty = 0;
-  const static PieceType kRedKing = 8;
-  const static PieceType kRedBodyGuard = 9;
-  const static PieceType kRedBishop = 10;
-  const static PieceType kRedHorse = 11;
-  const static PieceType kRedRook = 12;
-  const static PieceType kRedCannon = 13;
-  const static PieceType kRedPawn = 14;
-  const static PieceType kBlackKing = 16;
-  const static PieceType kBlackBodyGuard = 17;
-  const static PieceType kBlackBishop = 18;
-  const static PieceType kBlackHorse = 19;
-  const static PieceType kBlackRook = 20;
-  const static PieceType kBlackCannon = 21;
-  const static PieceType kBlackPawn = 22;
+  const static PieceType kEmpty;
+  const static PieceType kRedKing;
+  const static PieceType kRedBodyGuard;
+  const static PieceType kRedBishop;
+  const static PieceType kRedHorse;
+  const static PieceType kRedRook; 
+  const static PieceType kRedCannon;
+  const static PieceType kRedPawn;
+  const static PieceType kBlackKing;
+  const static PieceType kBlackBodyGuard;
+  const static PieceType kBlackBishop;
+  const static PieceType kBlackHorse;
+  const static PieceType kBlackRook;
+  const static PieceType kBlackCannon;
+  const static PieceType kBlackPawn;
 
   static std::shared_ptr<Piece> CreatePiece(PieceType piece_type);
-  static bool Empty(const std::shared_ptr<Piece> piece);
   static std::shared_ptr<Piece> GetEmptyPiece();
 
   //static std::shared_ptr<Piece> CreateEmpty();
@@ -50,6 +49,9 @@ class Piece {
   //static std::shared_ptr<Piece> CreateBlackPawn(); 
 
   PieceType piece_type();
+  bool IsRed();
+  bool IsBlack();
+  bool Empty();
 
  private:
   Piece(PieceType piece_type);

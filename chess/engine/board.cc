@@ -3,6 +3,7 @@
 //@author: linjiafang33@163.com
 
 #include "board.h"
+#include "move_state.h"
 
 
 namespace chess {
@@ -37,30 +38,33 @@ void Board::LoadBoard(int* pieces) {
   }
 }
 
-std::shared_ptr<Piece> Board::MakeMove(std::shared_ptr<Move> move) throw (piece_not_found){
-  std::shared_ptr<Piece> from_piece = board_[move->from()];
-  if (Piece::Empty(from_piece)) {
+std::shared_ptr<MoveState> Board::MakeMove(int position, const Move& move) 
+    throw (piece_not_found, std::out_of_range) {
+  std::shared_ptr<Piece> from_piece = GetPiece(position);
+  if (from_piece->Empty()) {
     throw piece_not_found("piece not found in from-position");
   }
 
-  std::shared_ptr<Piece> to_piece = board_[move->to()];
+  std::shared_ptr<MoveState> move_state(new MoveState(from_piece, position, move));
 
-  board_[move->to()] = from_piece;
-  board_[move->from()] = Piece::GetEmptyPiece();
+  std::shared_ptr<Piece> to_piece = GetPiece(move_state->to());
 
-  move->SetMovePiece(from_piece);
-  move->SetKilledPiece(to_piece);
-  return from_piece;
+  SetPiece(move_state->to(), from_piece);
+  SetPiece(move_state->from(), Piece::GetEmptyPiece());
+
+  move_state->SetKilledPiece(to_piece);
+  return move_state;
 }
 
-void Board::UnmakeMove(std::shared_ptr<Move> move) throw (invalid_move) {
-  std::shared_ptr<Piece> to_piece = board_[move->to()];
-  if (to_piece != move->move_piece()) {
+void Board::UnmakeMove(std::shared_ptr<MoveState> move_state) 
+    throw (invalid_move, std::out_of_range) {
+  std::shared_ptr<Piece> to_piece = GetPiece(move_state->to());
+  if (to_piece != move_state->moved_piece()) {
     throw invalid_move("move piece not equal to board piece");
   }
 
-  board_[move->to()] = move->killed_piece();
-  board_[move->from()] = to_piece;
+  SetPiece(move_state->to(), move_state->killed_piece());
+  SetPiece(move_state->from(), to_piece);
 }
 
 std::shared_ptr<Piece> Board::GetPiece(int position) throw (std::out_of_range){
@@ -69,6 +73,14 @@ std::shared_ptr<Piece> Board::GetPiece(int position) throw (std::out_of_range){
   }
 
   return board_[position];
+}
+
+void Board::SetPiece(int position, std::shared_ptr<Piece> piece) throw (std::out_of_range) {
+  if (!(0 <= position && position < kDroppointNumber)) {
+    throw std::out_of_range("piece position out of range");
+  }
+
+  board_[position] = piece;
 }
 
 }

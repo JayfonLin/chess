@@ -19,8 +19,8 @@ TEST(PieceTest, CreateTwice) {
 }
 
 TEST(PieceTest, Empty) {
-  EXPECT_TRUE(!chess::Piece::Empty(chess::Piece::CreatePiece(chess::Piece::kBlackKing)));
-  EXPECT_TRUE(chess::Piece::Empty(chess::Piece::GetEmptyPiece()));
+  EXPECT_TRUE(!chess::Piece::CreatePiece(chess::Piece::kBlackKing)->Empty());
+  EXPECT_TRUE(chess::Piece::GetEmptyPiece()->Empty());
 }
 
 

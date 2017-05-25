@@ -12,6 +12,7 @@
 #include "exceptions.h"
 #include "move.h"
 #include "piece.h"
+#include "move_state.h"
 
 
 namespace chess {
@@ -23,9 +24,10 @@ class Board {
   Board();
   void LoadStandardBoard();
   void LoadBoard(int* pieces);
-  std::shared_ptr<Piece> MakeMove(std::shared_ptr<Move> move) throw (piece_not_found);
-  void UnmakeMove(std::shared_ptr<Move> move) throw (invalid_move);
+  std::shared_ptr<MoveState> MakeMove(int position, const Move& move) throw (piece_not_found, std::out_of_range);
+  void UnmakeMove(std::shared_ptr<MoveState> move_state) throw (invalid_move, std::out_of_range);
   std::shared_ptr<Piece> GetPiece(int position) throw (std::out_of_range);
+  void SetPiece(int position, std::shared_ptr<Piece> piece) throw (std::out_of_range);
 
  private:
   

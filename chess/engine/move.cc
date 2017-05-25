@@ -6,31 +6,16 @@
 
 namespace chess {
 
-Move::Move(int from, int to) : from_(from), to_(to){
+Move::Move(int left, int forward) 
+    : left_num_(left), forward_num_(forward) {
 }
 
-void Move::SetMovePiece(std::shared_ptr<Piece> piece) {
-  move_piece_ = piece;
+int Move::left_num() {
+  return left_num_;
 }
 
-std::shared_ptr<Piece> Move::move_piece() {
-  return move_piece_;
-}
-
-void Move::SetKilledPiece(std::shared_ptr<Piece> piece) {
-  killed_piece_ = piece;
-}
-
-std::shared_ptr<Piece> Move::killed_piece() {
-  return killed_piece_;
-}
-
-int Move::from() {
-  return from_;
-}
-
-int Move::to() {
-  return to_;
+int Move::forward_num() {
+  return forward_num_;
 }
 
 }

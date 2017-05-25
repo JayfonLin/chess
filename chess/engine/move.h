@@ -12,19 +12,14 @@ class Piece;
 
 class Move {
  public:
-  Move(int from, int to);
-  void SetMovePiece(std::shared_ptr<Piece> piece);
-  std::shared_ptr<Piece> move_piece();
-  void SetKilledPiece(std::shared_ptr<Piece> piece);
-  std::shared_ptr<Piece> killed_piece();
-  int from();
-  int to();
+  Move(int left, int forward);
+
+  int left_num();
+  int forward_num();
 
  private:
-  std::shared_ptr<Piece> move_piece_;
-  std::shared_ptr<Piece> killed_piece_;
-  int from_;
-  int to_;
+  int left_num_;
+  int forward_num_;
 };
 }
 
