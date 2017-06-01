@@ -29,6 +29,10 @@ class MoveGenerator {
   Moves GetEmptyMoves();
   Moves GetKingMoves();
   Moves GetRookMoves();
+  Moves GetHorseMoves();
+  Moves GetBishopMoves();
+
+  Moves InitMoveArray(int move_array[][2], int size);
 
   std::map<PieceType, Moves> move_map_;
 

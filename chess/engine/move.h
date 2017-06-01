@@ -14,8 +14,8 @@ class Move {
  public:
   Move(int left, int forward);
 
-  int left_num();
-  int forward_num();
+  int left_num() const;
+  int forward_num() const;
 
  private:
   int left_num_;

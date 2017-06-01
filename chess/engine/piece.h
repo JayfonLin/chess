@@ -7,51 +7,39 @@
 
 #include <stdint.h>
 #include <memory>
+#include <string>
 
 namespace chess {
 typedef int8_t PieceType;
 
 class Piece {
  public:
-  const static PieceType kEmpty;
-  const static PieceType kRedKing;
-  const static PieceType kRedBodyGuard;
-  const static PieceType kRedBishop;
-  const static PieceType kRedHorse;
-  const static PieceType kRedRook; 
-  const static PieceType kRedCannon;
-  const static PieceType kRedPawn;
-  const static PieceType kBlackKing;
-  const static PieceType kBlackBodyGuard;
-  const static PieceType kBlackBishop;
-  const static PieceType kBlackHorse;
-  const static PieceType kBlackRook;
-  const static PieceType kBlackCannon;
-  const static PieceType kBlackPawn;
+  enum {
+    kEmpty = 0,
+    kRedKing = 8,
+    kRedBodyGuard = 9,
+    kRedBishop = 10,
+    kRedHorse = 11,
+    kRedRook = 12,
+    kRedCannon = 13,
+    kRedPawn = 14,
+    kBlackKing = 16,
+    kBlackBodyGuard = 17,
+    kBlackBishop = 18,
+    kBlackHorse = 19,
+    kBlackRook = 20,
+    kBlackCannon = 21,
+    kBlackPawn = 22
+  };
 
   static std::shared_ptr<Piece> CreatePiece(PieceType piece_type);
   static std::shared_ptr<Piece> GetEmptyPiece();
-
-  //static std::shared_ptr<Piece> CreateEmpty();
-  //static std::shared_ptr<Piece> CreateRedKing(); 
-  //static std::shared_ptr<Piece> CreateRedBodyGuard(); 
-  //static std::shared_ptr<Piece> CreateRedBishop(); 
-  //static std::shared_ptr<Piece> CreateRedHorse(); 
-  //static std::shared_ptr<Piece> CreateRedRook(); 
-  //static std::shared_ptr<Piece> CreateRedCannon(); 
-  //static std::shared_ptr<Piece> CreateRedPawn(); 
-  //static std::shared_ptr<Piece> CreateBlackKing(); 
-  //static std::shared_ptr<Piece> CreateBlackBodyGuard(); 
-  //static std::shared_ptr<Piece> CreateBlackBishop(); 
-  //static std::shared_ptr<Piece> CreateBlackHorse(); 
-  //static std::shared_ptr<Piece> CreateBlackRook(); 
-  //static std::shared_ptr<Piece> CreateBlackCannon(); 
-  //static std::shared_ptr<Piece> CreateBlackPawn(); 
 
   PieceType piece_type();
   bool IsRed();
   bool IsBlack();
   bool Empty();
+  std::string Name();
 
  private:
   Piece(PieceType piece_type);
@@ -59,6 +47,6 @@ class Piece {
   PieceType piece_type_;
 };
 
-}
+} // namespace chess
 
 #endif

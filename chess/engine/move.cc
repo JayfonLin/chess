@@ -10,11 +10,11 @@ Move::Move(int left, int forward)
     : left_num_(left), forward_num_(forward) {
 }
 
-int Move::left_num() {
+int Move::left_num() const {
   return left_num_;
 }
 
-int Move::forward_num() {
+int Move::forward_num() const {
   return forward_num_;
 }
 
