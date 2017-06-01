@@ -23,6 +23,10 @@ bool IsRookMoveValid(std::shared_ptr<Board> board, std::shared_ptr<MoveState> mo
 bool IsKingMoveValid(std::shared_ptr<Board> board, std::shared_ptr<MoveState> move_state);
 bool IsHorseMoveValid(std::shared_ptr<Board> board, std::shared_ptr<MoveState> move_state);
 bool IsBishopMoveValid(std::shared_ptr<Board> board, std::shared_ptr<MoveState> move_state);
+bool IsBodyGuardMoveValid(std::shared_ptr<Board> board, std::shared_ptr<MoveState> move_state);
+bool IsCannonMoveValid(std::shared_ptr<Board> board, std::shared_ptr<MoveState> move_state);
+bool IsPawnMoveValid(std::shared_ptr<Board> board, std::shared_ptr<MoveState> move_state);
+bool HasCrossedRiver(std::shared_ptr<Board> board, std::shared_ptr<Piece> piece, std::shared_ptr<Location> location);
 
 } // namespace rule
 } // namespce chess

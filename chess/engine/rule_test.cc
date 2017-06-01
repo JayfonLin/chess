@@ -83,6 +83,33 @@ TEST(RuleTest, MoveBishop) {
   MovePiece(board, location2);
 }
 
+TEST(RuleTest, MoveBodyGuard) {
+  std::shared_ptr<chess::Board> board(new chess::Board());
+  board->LoadBoard(random_board);
+
+  auto location = std::make_shared<chess::Location>(9, 5);
+  MovePiece(board, location);  
+}
+
+TEST(RuleTest, MoveCannon) {
+  std::shared_ptr<chess::Board> board(new chess::Board());
+  board->LoadBoard(random_board);
+
+  auto location = std::make_shared<chess::Location>(3, 8);
+  MovePiece(board, location);  
+}
+
+TEST(RuleTest, MovePawn) {
+  std::shared_ptr<chess::Board> board(new chess::Board());
+  board->LoadBoard(random_board);
+
+  auto location1 = std::make_shared<chess::Location>(5, 7);
+  MovePiece(board, location1);
+
+  auto location2 = std::make_shared<chess::Location>(4, 3);
+  MovePiece(board, location2);  
+}
+
 int main(int argc, char **argv) {
   ::testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();

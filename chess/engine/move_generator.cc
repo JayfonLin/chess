@@ -28,6 +28,16 @@ void MoveGenerator::Init() {
 
   move_map_[Piece::kRedBishop] = GetBishopMoves();
   move_map_[Piece::kBlackBishop] = GetBishopMoves();
+
+  move_map_[Piece::kRedBodyGuard] = GetBodyGuardMoves();
+  move_map_[Piece::kBlackBodyGuard] = GetBodyGuardMoves();
+
+  move_map_[Piece::kRedCannon] = GetCannonMoves();
+  move_map_[Piece::kBlackCannon] = GetCannonMoves();
+
+  move_map_[Piece::kRedPawn] = GetPawnMoves();
+  move_map_[Piece::kBlackPawn] = GetPawnMoves();
+
 }
 
 typename MoveGenerator::Moves MoveGenerator::InitMoveArray(int move_array[][2], int size) {
@@ -62,6 +72,17 @@ typename MoveGenerator::Moves MoveGenerator::GetRookMoves() {
   return InitMoveArray(rook_array, 34);
 }
 
+typename MoveGenerator::Moves MoveGenerator::GetCannonMoves() {
+  int rook_array[][2] = {
+    {0, 1}, {0, 2}, {0, 3}, {0, 4}, {0, 5}, {0, 6}, {0, 7}, {0, 8}, {0, 9},
+    {0, -1}, {0, -2}, {0, -3}, {0, -4}, {0, -5}, {0, -6}, {0, -7}, {0, -8}, {0, -9},
+    {1, 0}, {2, 0}, {3, 0}, {4, 0}, {5, 0}, {6, 0}, {7, 0}, {8, 0},
+    {-1, 0}, {-2, 0}, {-3, 0}, {-4, 0}, {-5, 0}, {-6, 0}, {-7, 0}, {-8, 0}
+  };
+
+  return InitMoveArray(rook_array, 34);
+}
+
 typename MoveGenerator::Moves MoveGenerator::GetHorseMoves() {
   int horse_array[][2] = {
     {-1, 2},
@@ -86,6 +107,27 @@ typename MoveGenerator::Moves MoveGenerator::GetBishopMoves() {
   };
 
   return InitMoveArray(move_array, 4);
+}
+
+typename MoveGenerator::Moves MoveGenerator::GetBodyGuardMoves() {
+  int move_array[][2] = {
+    {1, 1},
+    {-1, 1},
+    {-1, -1},
+    {1, -1}
+  };
+
+  return InitMoveArray(move_array, 4);
+}
+
+typename MoveGenerator::Moves MoveGenerator::GetPawnMoves() {
+  int move_array[][2] = {
+    {0, 1},
+    {1, 0},
+    {-1, 0}
+  };
+
+  return InitMoveArray(move_array, 3);
 }
 
 const typename MoveGenerator::Moves& MoveGenerator::Generate(std::shared_ptr<Piece> piece) {

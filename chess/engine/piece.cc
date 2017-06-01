@@ -43,6 +43,13 @@ std::string Piece::Name() {
       return std::string("Red-Horse");
     case kRedBishop:
       return std::string("Red-Bishop");
+    case kRedBodyGuard:
+      return std::string("Red-BodyGuard");
+    case kRedCannon:
+      return std::string("Red-Cannon");
+    case kRedPawn:
+      return std::string("Red-Pawn");
+
     case kBlackKing:
       return std::string("Black-King");
     case kBlackRook:
@@ -51,6 +58,13 @@ std::string Piece::Name() {
       return std::string("Black-Horse");
     case kBlackBishop:
       return std::string("Black-Bishop");
+    case kBlackBodyGuard:
+      return std::string("Black-BodyGuard");
+    case kBlackCannon:
+      return std::string("Black-Cannon");
+    case kBlackPawn:
+      return std::string("Black-Pawn");
+      
     case kEmpty:
     default:
       return std::string("Empty-Piece");

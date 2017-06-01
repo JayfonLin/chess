@@ -68,6 +68,24 @@ bool ValidMoveState(std::shared_ptr<Board> board, std::shared_ptr<MoveState> mov
       return IsBishopMoveValid(board, move_state);
     }
 
+    case Piece::kRedBodyGuard:
+    case Piece::kBlackBodyGuard:
+    {
+      return IsBodyGuardMoveValid(board, move_state);
+    }
+
+    case Piece::kRedCannon:
+    case Piece::kBlackCannon:
+    {
+      return IsCannonMoveValid(board, move_state);
+    }
+
+    case Piece::kRedPawn:
+    case Piece::kBlackPawn:
+    {
+      return IsPawnMoveValid(board, move_state);
+    }
+
     default:
     {
       return false;
@@ -197,19 +215,80 @@ bool IsBishopMoveValid(std::shared_ptr<Board> board, std::shared_ptr<MoveState> 
     return false;
   }
 
-  if (move_state->moved_piece()->IsRed()) {
-    if (!board->InRedHalf(move_state->to())) {
-      return false;
-    }
-
-  } else {
-    if (!board->InBlackHalf(move_state->to())) {
-      return false;
-    }
-    
+  if (HasCrossedRiver(board, move_state->moved_piece(), move_state->to())) {
+    return false;
   }
 
   return true;
+}
+
+bool IsBodyGuardMoveValid(std::shared_ptr<Board> board, std::shared_ptr<MoveState> move_state) {
+  if (!(abs(move_state->forward_num()) == 1 && abs(move_state->left_num()) == 1)) {
+    return false;
+  }
+
+  if (!board->InFort(move_state->to())) {
+    return false;
+  }
+
+  return true;
+}
+
+bool IsCannonMoveValid(std::shared_ptr<Board> board, std::shared_ptr<MoveState> move_state) {
+  if (!move_state->IsStraight()) {
+    return false;
+  }
+
+  int piece_num = PieceNumBetweenLine(board, move_state);
+  if (1 < piece_num) {
+    return false;
+  }
+
+  if (1 == piece_num) {
+    if (move_state->killed_piece()->Empty()) {
+      return false;
+    }
+  }
+
+  if (0 == piece_num) {
+    if (!move_state->killed_piece()->Empty()) {
+      return false;
+    }
+  }
+
+  return true;
+}
+
+bool IsPawnMoveValid(std::shared_ptr<Board> board, std::shared_ptr<MoveState> move_state) {
+  if (HasCrossedRiver(board, move_state->moved_piece(), move_state->from())) {
+    if (move_state->IsStraight() && move_state->forward_num() != -1) {
+      return true;
+    }
+    return false;
+
+  } else {
+    if (move_state->forward_num() == 1 && move_state->left_num() == 0) {
+      return true;
+    }
+    return false;
+  }
+}
+
+bool HasCrossedRiver(std::shared_ptr<Board> board, 
+  std::shared_ptr<Piece> piece, std::shared_ptr<Location> location) {
+
+  if (piece->IsRed()) {
+    if (board->InBlackHalf(location)) {
+      return true;
+    }
+
+  } else if (piece->IsBlack()) {
+    if (board->InRedHalf(location)) {
+      return true;
+    }
+  }
+
+  return false;
 }
 
 } // namespace rule

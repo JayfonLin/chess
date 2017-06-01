@@ -29,8 +29,11 @@ class MoveGenerator {
   Moves GetEmptyMoves();
   Moves GetKingMoves();
   Moves GetRookMoves();
+  Moves GetCannonMoves();
   Moves GetHorseMoves();
   Moves GetBishopMoves();
+  Moves GetBodyGuardMoves();
+  Moves GetPawnMoves();
 
   Moves InitMoveArray(int move_array[][2], int size);
 
