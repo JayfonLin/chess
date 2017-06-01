@@ -146,8 +146,20 @@ bool IsKingMoveValid(std::shared_ptr<Board> board, std::shared_ptr<MoveState> mo
     return false;
   }
 
-  if (!(abs(move_state->left_num()) == 1 || abs(move_state->forward_num()) == 1)) {
-    return false;
+  if (!HasCrossedRiver(board, move_state->moved_piece(), move_state->to())) {
+    if (!(abs(move_state->left_num()) == 1 || abs(move_state->forward_num()) == 1)) {
+      return false;
+    }
+
+  } else {
+    if (!(move_state->killed_piece()->piece_type() == Piece::kRedKing 
+      || move_state->killed_piece()->piece_type() == Piece::kBlackKing)) {
+      return false;
+    }
+
+    if (PieceNumBetweenLine(board, move_state) != 0) {
+      return false;
+    }
   }
 
   if (!board->InFort(move_state->to())) {
